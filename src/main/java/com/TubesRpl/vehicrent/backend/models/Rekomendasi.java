@@ -1,20 +1,15 @@
-// package com.TubesRpl.vehicrent.backend.models;
+package com.TubesRpl.vehicrent.backend.models;
 
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-// @Entity
-// @Table(name = "Rekomendasi")  
-// public class Rekomendasi {
-
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private String ID_Rekomendasi;
-
-    
-
-    
-// }
+@Entity
+@Table(name = "Rekomendasi")  
+public class Rekomendasi {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long ID_Rekomendasi;
+}
