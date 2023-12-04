@@ -55,6 +55,8 @@ public class UserDisplayInfoImplement implements BaseServices<User> {
                 user.setJenisKelamin_User(model.getJenisKelamin_User());
                 user.setUmur_User(model.getUmur_User());
                 user.setEmail_User(model.getEmail_User());
+                user.setUsername(model.getUsername());
+                user.setPassword(model.getPassword());
 
                 userRepository.save(user);
                 return new Response(HttpStatus.OK.value(), "Success", user);

@@ -109,8 +109,8 @@ public class UserRequest{
         Password = password;
     }
 
-    // public void User() {
-    // }
+    public void User() {
+    }
 
     //regist, login & logout
 }
