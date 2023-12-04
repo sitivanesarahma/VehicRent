@@ -1,16 +1,13 @@
-package com.TubesRpl.vehicrent.backend.models;
+package com.TubesRpl.vehicrent.backend.payloads.requests;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "User")
-public class User {
+public class UserRequest{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer NIK_User;
@@ -100,7 +97,7 @@ public class User {
         Password = password;
     }
 
-    public User(Integer nIK_User, String role_User, String nama_User, String jenisKelamin_User, Integer umur_User,
+    public void User(Integer nIK_User, String role_User, String nama_User, String jenisKelamin_User, Integer umur_User,
             String email_User, String username, String password) {
         NIK_User = nIK_User;
         Role_User = role_User;
@@ -112,8 +109,8 @@ public class User {
         Password = password;
     }
 
-    public User() {
-    }
+    // public void User() {
+    // }
 
     //regist, login & logout
 }
