@@ -58,6 +58,9 @@ public class Regent {
         this.listKendaraan = listKendaraan;
     }
 
+    public Regent() {
+    }
+
     
     
 }

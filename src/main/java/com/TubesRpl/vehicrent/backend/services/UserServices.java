@@ -12,7 +12,7 @@ import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 
 
 @Service
-public class UserDisplayInfoImplement implements BaseServices<User> {
+public class UserServices implements BaseServices<User> {
     
     @Autowired
     private UserRepository userRepository;
@@ -31,6 +31,27 @@ public class UserDisplayInfoImplement implements BaseServices<User> {
             System.out.println("Email User: " + user.getEmail_User());
         }
         return new Response(HttpStatus.OK.value(), "Success", alluser);
+    }
+
+    @Override
+    public Response DisplayByID(Integer id){
+        try{
+            User user = userRepository.findById(id).orElse(null);
+            if(user != null){
+                System.out.println("User ID: " + user.getNIK_User());
+                System.out.println("Role User: " + user.getRole_User());
+                System.out.println("Nama User: " + user.getNama_User());
+                System.out.println("Jenis Kelamin User: " + user.getJenisKelamin_User());
+                System.out.println("Umur User: " + user.getUmur_User());
+                System.out.println("Email User: " + user.getEmail_User());
+                return new Response(HttpStatus.OK.value(), "Success", user);
+            }else{
+                return new Response(HttpStatus.NOT_FOUND.value(), "User not found", null);
+            }
+        }
+        catch(Exception e){
+            return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+        }
     }
 
     @Override
