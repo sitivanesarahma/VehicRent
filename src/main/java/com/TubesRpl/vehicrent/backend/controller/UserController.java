@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.status(userByID.getStatus()).body(userByID);
 }
     
-    @PostMapping("/createuser")
+    @PostMapping("/create")
     public ResponseEntity<?> CreateAccount(@RequestBody User Userbaru, Model model) {
         Response response = display.Create(Userbaru);
         if (response.getStatus() == HttpStatus.OK.value()) {
@@ -46,7 +46,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/updateuser/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> UpdateUser(@RequestBody User Userbaru, @PathVariable Integer id) {
         Response response = display.Update(id, Userbaru);
         return ResponseEntity.status(200).body(response);
