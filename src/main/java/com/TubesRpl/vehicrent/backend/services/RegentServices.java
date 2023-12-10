@@ -72,4 +72,18 @@ public class RegentServices implements BaseServices<Regent>{
             return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
         }
     }
+
+    @Override
+    public Response DisplayByID(Integer id){
+        try{
+            Regent regent = regentRepository.findById(id).orElse(null);
+            if (regent != null){
+                return new Response(HttpStatus.OK.value(), "Success", regent);
+            }else{
+                return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+            }
+        }catch(Exception e){
+            return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+        }
+    }
 }
