@@ -3,23 +3,31 @@ package com.TubesRpl.vehicrent.backend.models;
 
 import java.util.List;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @Entity
 @Table(name = "Regent")
 public class Regent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer ID_Regent;
+
     @ManyToOne
     @JoinColumn(name = "NIK_User", referencedColumnName = "NIK_User")
-    private User NIK_User;
+    private User user;
 
     @Column
     private String Norek_Regent;
@@ -28,18 +36,30 @@ public class Regent {
     @OneToMany(mappedBy = "regent", cascade = CascadeType.ALL)
     private List<Kendaraan> listKendaraan;
 
-    public Regent(User nIK_User, String norek_Regent, List<Kendaraan> listKendaraan) {
-        NIK_User = nIK_User;
+    public Regent(Integer ID_Regent, User user, String norek_Regent, List<Kendaraan> listKendaraan) {
+        this.ID_Regent = ID_Regent;
+        this.user = user;
         Norek_Regent = norek_Regent;
         this.listKendaraan = listKendaraan;
     }
 
-    public User getNIK_User() {
-        return NIK_User;
+    public Regent() {
     }
 
-    public void setNIK_User(User nIK_User) {
-        NIK_User = nIK_User;
+    public void setID_Regent(Integer ID_Regent) {
+        this.ID_Regent = ID_Regent;
+    }
+
+    public Integer getID_Regent() {
+        return ID_Regent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNorek_Regent() {
@@ -56,9 +76,6 @@ public class Regent {
 
     public void setListKendaraan(List<Kendaraan> listKendaraan) {
         this.listKendaraan = listKendaraan;
-    }
-
-    public Regent() {
     }
 
     
