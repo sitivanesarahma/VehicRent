@@ -29,6 +29,12 @@ public class RegentController {
         return ResponseEntity.status(200).body(allregent);
     }
 
+    @RequestMapping("/display/{id}")
+    public ResponseEntity<?> displayById(@PathVariable Integer id) {
+        Response regentByID = display.DisplayByID(id);
+        return ResponseEntity.status(200).body(regentByID);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> CreateAccount(@RequestBody Regent regentbaru, Model model) {
         Response response = display.Create(regentbaru);

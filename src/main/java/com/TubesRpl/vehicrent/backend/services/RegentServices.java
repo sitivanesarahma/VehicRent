@@ -78,9 +78,12 @@ public class RegentServices implements BaseServices<Regent>{
         try{
             Regent regent = regentRepository.findById(id).orElse(null);
             if (regent != null){
+                System.out.println("ID Regent: " + regent.getID_Regent());
+                System.out.println("NIK User: " + regent.getUser());
+                System.out.println("Norek Regent: " + regent.getNorek_Regent());
                 return new Response(HttpStatus.OK.value(), "Success", regent);
             }else{
-                return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+                return new Response(HttpStatus.NOT_FOUND.value(), "Regent not found", null);
             }
         }catch(Exception e){
             return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
