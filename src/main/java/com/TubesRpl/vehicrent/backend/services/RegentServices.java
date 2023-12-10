@@ -8,16 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.TubesRpl.repository.RegentRepository;
-import com.TubesRpl.repository.UserRepository;
 import com.TubesRpl.vehicrent.backend.models.Regent;
-import com.TubesRpl.vehicrent.backend.models.User;
 import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 
 @Service
 public class RegentServices implements BaseServices<Regent>{
     @Autowired
     private RegentRepository regentRepository;
-    private UserRepository userRepository;
 
     @Override
     public Response DisplayAllData(){
@@ -51,7 +48,7 @@ public class RegentServices implements BaseServices<Regent>{
                 regentRepository.save(regent);
                 return new Response(HttpStatus.OK.value(), "Success", regent);
             }else{
-                return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+                return new Response(HttpStatus.NOT_FOUND.value(), "Regent not found", null);
             }
         }catch(Exception e){
             return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
@@ -66,7 +63,7 @@ public class RegentServices implements BaseServices<Regent>{
                 regentRepository.delete(regent);
                 return new Response(HttpStatus.OK.value(), "Success", regent);
             }else{
-                return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
+                return new Response(HttpStatus.NOT_FOUND.value(), "Regent not found", null);
             }
         }catch(Exception e){
             return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", null);
