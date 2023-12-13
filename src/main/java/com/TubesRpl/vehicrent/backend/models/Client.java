@@ -15,9 +15,11 @@ import jakarta.persistence.Table;
 public class Client {
 
     @Id
+    private Integer ID_Client;
+
     @ManyToOne
     @JoinColumn(name = "NIK_User", referencedColumnName = "NIK_User")
-    private User NIK_User;
+    private User user;
 
     @Column
     private String NoSIM;
@@ -25,5 +27,47 @@ public class Client {
     @ManyToOne
     @JoinColumn(name = "ID_Rekomendasi", referencedColumnName = "ID_Rekomendasi")
     private Rekomendasi rekomendasi;
-    
+
+    public Client(Integer ID_Client, User user, String noSIM, Rekomendasi rekomendasi) {
+        this.ID_Client = ID_Client;
+        this.user = user;
+        NoSIM = noSIM;
+        this.rekomendasi = rekomendasi;
+    }
+
+    public Client() {
+    }
+
+    public void setID_Client(Integer ID_Client) {
+        this.ID_Client = ID_Client;
+    }
+
+    public Integer getID_Client() {
+        return ID_Client;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Rekomendasi getRekomendasi() {
+        return rekomendasi;
+    }
+
+    public void setRekomendasi(Rekomendasi rekomendasi) {
+        this.rekomendasi = rekomendasi;
+    }
+
+    public String getNoSIM() {
+        return NoSIM;
+    }
+
+    public void setNoSIM(String noSIM) {
+        NoSIM = noSIM;
+    }
+
 }
