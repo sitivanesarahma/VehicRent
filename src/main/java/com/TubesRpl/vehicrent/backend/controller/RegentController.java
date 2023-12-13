@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.TubesRpl.vehicrent.backend.models.Regent;
+import com.TubesRpl.vehicrent.backend.payloads.requests.RegentRequest;
 import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 import com.TubesRpl.vehicrent.backend.services.BaseServices;
+import com.TubesRpl.vehicrent.backend.services.RoleServices;
 
 import ch.qos.logback.core.model.Model;
 
@@ -21,7 +22,7 @@ import ch.qos.logback.core.model.Model;
 @RequestMapping("/regent")
 public class RegentController {
     @Autowired
-    private BaseServices<Regent> display;
+    private RoleServices<RegentRequest> display;
 
     @RequestMapping("/display")
     public ResponseEntity<?> index() {
@@ -36,7 +37,7 @@ public class RegentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> CreateAccount(@RequestBody Regent regentbaru, Model model) {
+    public ResponseEntity<?> CreateAccount(@RequestBody RegentRequest regentbaru, Model model) {
         Response response = display.Create(regentbaru);
         if (response.getStatus() == HttpStatus.OK.value()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -46,7 +47,7 @@ public class RegentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> UpdateAccount(@RequestBody Regent regentbaru, @PathVariable Integer id) {
+    public ResponseEntity<?> UpdateAccount(@RequestBody RegentRequest regentbaru, @PathVariable Integer id) {
         Response allregent = display.Update(id, regentbaru);
         return ResponseEntity.status(200).body(allregent);
     }
