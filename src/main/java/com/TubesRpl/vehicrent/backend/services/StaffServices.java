@@ -43,7 +43,7 @@ public class StaffServices implements BaseServices<Staff>{
         try{
             Staff staff = staffRepository.findById(id).orElse(null);
             if (staff != null){
-                staff.setNIK_User(model.getUser());
+                staff.setUser(model.getUser());
                 staffRepository.save(staff);
                 return new Response(HttpStatus.OK.value(), "Success", staff);
             }else{
@@ -75,7 +75,7 @@ public class StaffServices implements BaseServices<Staff>{
             Staff staff = staffRepository.findById(id).orElse(null);
             if(staff != null){
                 System.out.println("ID Staff: " + staff.getID_Staff());
-                System.out.println("NIK User: " + staff.getUser());
+                System.out.println("NIK User: " + staff.getUser().getNIK_User());
                 return new Response(HttpStatus.OK.value(), "Success", staff);
             }else{
                 return new Response(HttpStatus.NOT_FOUND.value(), "Staff not found", null);

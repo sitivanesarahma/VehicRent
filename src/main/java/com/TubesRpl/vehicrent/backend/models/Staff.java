@@ -41,7 +41,7 @@ public class Staff {
         return user;
     }
 
-    public void setNIK_User(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }
