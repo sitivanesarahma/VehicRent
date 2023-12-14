@@ -68,8 +68,11 @@ public class UserServices implements BaseServices<User> {
     @Override
     public Response Update(Integer id, User model) {
         try {
+            System.out.println("1");
             User user = userRepository.findById(id).orElse(null);
+            System.out.println("2");
             if (user != null) {
+                System.out.println("3");
                 user.setNIK_User(model.getNIK_User());
                 user.setRole_User(model.getRole_User());
                 user.setNama_User(model.getNama_User());
@@ -78,8 +81,9 @@ public class UserServices implements BaseServices<User> {
                 user.setEmail_User(model.getEmail_User());
                 user.setUsername(model.getUsername());
                 user.setPassword(model.getPassword());
-
+                System.out.println("4");
                 userRepository.save(user);
+                System.out.println("5");
                 return new Response(HttpStatus.OK.value(), "Success", user);
             } else {
                 return new Response(HttpStatus.NOT_FOUND.value(), "User not found", null);
