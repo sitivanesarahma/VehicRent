@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.TubesRpl.vehicrent.backend.models.Client;
+import com.TubesRpl.vehicrent.backend.payloads.requests.ClientRequest;
 import com.TubesRpl.vehicrent.backend.payloads.response.Response;
-import com.TubesRpl.vehicrent.backend.services.BaseServices;
+import com.TubesRpl.vehicrent.backend.services.RoleServices;
 
 @Controller
 @RequestMapping("/client")
 public class ClientController {
     
     @Autowired
-    private BaseServices<Client> clientServices;
+    private RoleServices<ClientRequest> clientServices;
     
     @RequestMapping("/display")
     public ResponseEntity<?> index(){
@@ -35,7 +35,7 @@ public class ClientController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> CreateAccount(@RequestBody Client clientbaru){
+    public ResponseEntity<?> CreateAccount(@RequestBody ClientRequest clientbaru){
         Response response = clientServices.Create(clientbaru);
         if (response.getStatus() == 200){
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -45,7 +45,7 @@ public class ClientController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> UpdateAccount(@RequestBody Client clientbaru, @PathVariable Integer id){
+    public ResponseEntity<?> UpdateAccount(@RequestBody ClientRequest clientbaru, @PathVariable Integer id){
         Response allClient = clientServices.Update(id, clientbaru);
         return ResponseEntity.status(200).body(allClient);
     }

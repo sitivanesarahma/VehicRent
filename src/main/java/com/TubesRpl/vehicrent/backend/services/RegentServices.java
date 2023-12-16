@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.TubesRpl.repository.RegentRepository;
+import com.TubesRpl.repository.UserRepository;
 import com.TubesRpl.vehicrent.backend.models.Regent;
 import com.TubesRpl.vehicrent.backend.models.User;
 import com.TubesRpl.vehicrent.backend.payloads.requests.RegentRequest;
@@ -17,6 +18,9 @@ import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 public class RegentServices implements RoleServices<RegentRequest> {
     @Autowired
     private RegentRepository regentRepository;
+
+    @Autowired
+    private UserRepository userrepository;
 
     @Override
     public Response DisplayAllData() {
@@ -33,20 +37,11 @@ public class RegentServices implements RoleServices<RegentRequest> {
     @Override
     public Response Create(RegentRequest request) {
         try {
-            Regent regentTemp = regentRepository.findById(request.getNIK_User()).orElse(null);
-            if (regentTemp != null) {
-                return new Response(HttpStatus.BAD_REQUEST.value(), "Regent already exist", null);
+            User user = userrepository.findById(request.getNIK_User()).orElse(null);
+            if (user == null) {
+                return new Response(HttpStatus.NOT_FOUND.value(), "User not found", request);
             }
             Regent regent = new Regent();
-            User user = new User();
-            user.setNIK_User(request.getNIK_User());
-            user.setRole_User(request.getRole_User());
-            user.setNama_User(request.getNama_User());
-            user.setJenisKelamin_User(request.getJenisKelamin_User());
-            user.setUmur_User(request.getUmur_User());
-            user.setEmail_User(request.getEmail_User());
-            user.setUsername(request.getUsername());
-            user.setPassword(request.getPassword());
             regent.setUser(user);
             regent.setNorek_Regent(request.getNorek_Regent());
             regent.setListKendaraan(request.getListKendaraan());
@@ -62,16 +57,7 @@ public class RegentServices implements RoleServices<RegentRequest> {
         try {
             Regent regent = regentRepository.findById(id).orElse(null);
             if (regent != null) {
-                User user = new User();
-                user.setNIK_User(request.getNIK_User());
-                user.setRole_User(request.getRole_User());
-                user.setNama_User(request.getNama_User());
-                user.setJenisKelamin_User(request.getJenisKelamin_User());
-                user.setUmur_User(request.getUmur_User());
-                user.setEmail_User(request.getEmail_User());
-                user.setUsername(request.getUsername());
-                user.setPassword(request.getPassword());
-                regent.setUser(user);
+                regent.setUser(regent.getUser());
                 regent.setNorek_Regent(request.getNorek_Regent());
                 regent.setListKendaraan(request.getListKendaraan());
                 regentRepository.save(regent);
