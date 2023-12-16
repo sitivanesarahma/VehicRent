@@ -2,10 +2,9 @@ package com.TubesRpl.vehicrent.backend.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -15,6 +14,7 @@ import jakarta.persistence.Table;
 public class Client {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID_Client;
 
     @ManyToOne
@@ -22,7 +22,7 @@ public class Client {
     private User user;
 
     @Column
-    private String NoSIM;
+    private String No_SIM;
 
     @ManyToOne
     @JoinColumn(name = "ID_Rekomendasi", referencedColumnName = "ID_Rekomendasi")
@@ -31,7 +31,7 @@ public class Client {
     public Client(Integer ID_Client, User user, String noSIM, Rekomendasi rekomendasi) {
         this.ID_Client = ID_Client;
         this.user = user;
-        NoSIM = noSIM;
+        No_SIM = noSIM;
         this.rekomendasi = rekomendasi;
     }
 
@@ -63,11 +63,11 @@ public class Client {
     }
 
     public String getNoSIM() {
-        return NoSIM;
+        return No_SIM;
     }
 
     public void setNoSIM(String noSIM) {
-        NoSIM = noSIM;
+        No_SIM = noSIM;
     }
 
 }

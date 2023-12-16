@@ -8,13 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.TubesRpl.repository.ClientRepository;
+import com.TubesRpl.repository.UserRepository;
 import com.TubesRpl.vehicrent.backend.models.Client;
+import com.TubesRpl.vehicrent.backend.models.Rekomendasi;
+import com.TubesRpl.vehicrent.backend.models.User;
+import com.TubesRpl.vehicrent.backend.payloads.requests.ClientRequest;
 import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 
 @Service
-public class ClientServices implements BaseServices<Client>{
+public class ClientServices implements RoleServices<ClientRequest>{
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private UserRepository userrepository;
+    @Autowired 
+    private BaseServices<Rekomendasi> rekomendasiServices;
     
     @Override
     public Response DisplayAllData(){
@@ -28,21 +36,34 @@ public class ClientServices implements BaseServices<Client>{
     }
 
     @Override
-    public Response Create(Client model){
+    public Response Create(ClientRequest request){
         try{
-            clientRepository.save(model);
-            return new Response(HttpStatus.OK.value(), "Success", model);
+            User user = userrepository.findById(request.getNIK_User()).orElse(null);
+            if (user == null){
+                return new Response(HttpStatus.NOT_FOUND.value(), "User not found", request);
+            }
+            Client client = new Client();
+            client.setUser(user);
+            client.setNoSIM(request.getNo_SIM());
+            Rekomendasi rekomendasi = new Rekomendasi();
+            rekomendasiServices.Create(rekomendasi);
+            client.setRekomendasi(rekomendasi);
+            clientRepository.save(client);
+            return new Response(HttpStatus.OK.value(), "Success", request);
         }catch(Exception e){
-            return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", model);
+            return new Response(HttpStatus.BAD_REQUEST.value(), "Failed", request);
         }
     }
 
     @Override
-    public Response Update(Integer id, Client model){
+    public Response Update(Integer id, ClientRequest request){
         try{
             Client client = clientRepository.findById(id).orElse(null);
             if (client != null){
-                client.setUser(model.getUser());
+                client.setUser(client.getUser());
+                client.setNoSIM(request.getNo_SIM());
+                System.out.println(request.getNo_SIM());
+                client.setRekomendasi(client.getRekomendasi());
                 clientRepository.save(client);
                 return new Response(HttpStatus.OK.value(), "Success", client);
             }else{
