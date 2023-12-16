@@ -18,11 +18,11 @@ public class Transaksi {
     private int ID_Transaksi;
 
     @ManyToOne
-    @JoinColumn(name = "NIK_Regent")
+    @JoinColumn(name = "ID_Regent")
     private Regent regent;
 
     @ManyToOne
-    @JoinColumn(name = "NIK_Client")
+    @JoinColumn(name = "ID_Client")
     private Client client;
 
     @ManyToOne
@@ -51,6 +51,9 @@ public class Transaksi {
         Hargatotal_Pemesanan = hargatotal_Pemesanan;
         Status_Pemesanan = status_Pemesanan;
         this.virtualAccountNumber = virtualAccountNumber;
+    }
+
+    public Transaksi() {
     }
 
     public int getID_Transaksi() {
