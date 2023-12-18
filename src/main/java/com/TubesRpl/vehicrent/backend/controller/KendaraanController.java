@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.TubesRpl.vehicrent.backend.models.Kendaraan;
+import com.TubesRpl.vehicrent.backend.payloads.requests.KendaraanRequest;
 import com.TubesRpl.vehicrent.backend.payloads.response.Response;
 import com.TubesRpl.vehicrent.backend.services.BaseServices;
 
@@ -22,7 +23,7 @@ import com.TubesRpl.vehicrent.backend.services.BaseServices;
 @RequestMapping("/kendaraan")
 public class KendaraanController {
     @Autowired
-    private BaseServices<Kendaraan> display; 
+    private BaseServices<KendaraanRequest> display; 
 
     @RequestMapping("/display")
     public ResponseEntity<?> index() {
@@ -37,17 +38,17 @@ public class KendaraanController {
     }
 
     @PostMapping("/createkendaraan")
-    public ResponseEntity<?> CreateKendaraan(@RequestBody Kendaraan Kendaraanbaru, Model model) {
+    public ResponseEntity<?> CreateKendaraan(@RequestBody KendaraanRequest Kendaraanbaru, Model model) {
         Response response = display.Create(Kendaraanbaru);
         if (response.getStatus() == HttpStatus.OK.value()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(response.getData());
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
     @PutMapping("/updatekendaraan/{id}")
-    public ResponseEntity<?> UpdateKendaraan(@RequestBody Kendaraan Kendaraanbaru, @PathVariable Integer id) {
+    public ResponseEntity<?> UpdateKendaraan(@RequestBody KendaraanRequest Kendaraanbaru, @PathVariable Integer id) {
         Response response = display.Update(id, Kendaraanbaru);
         return ResponseEntity.status(200).body(response);
     }
