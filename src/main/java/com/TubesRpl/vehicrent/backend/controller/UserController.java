@@ -32,10 +32,11 @@ public class UserController {
 
     @GetMapping("/display/{id}")
     public ResponseEntity<?> indexByID(@PathVariable Integer id) {
-        Response userByID = display.DisplayByID(id);;
+        Response userByID = display.DisplayByID(id);
+        ;
         return ResponseEntity.status(userByID.getStatus()).body(userByID);
-}
-    
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> CreateAccount(@RequestBody User Userbaru, Model model) {
         Response response = display.Create(Userbaru);
@@ -62,6 +63,11 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @RequestMapping("/register-form")
+    public String register(Model model) {
+        return "register-form";
     }
 
 }
